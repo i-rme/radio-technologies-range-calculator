@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Communication Systems - Radio Technologies</title>
+<header>
+    <h2 id="jsTitle">If you see this message, you have javascript disabled or calculator.js has failed to load, try on other browser.</h2>
+    <script src="js/general.js"></script>
+    <script src="js/technology_selection.js"></script>
+    <script src="js/intermediate_calculations_downlink.js"></script>
+    <script src="js/distance_calculations_downlink.js"></script>
+    <script src="js/intermediate_calculations_uplink.js"></script>
+    <script src="js/distance_calculations_uplink.js"></script>
+	<link rel="stylesheet" href="styles/styles.css">
+  </head>
+  <body>
+
+    <p><i>Made by Ra&uacute;l Martínez et al.</i></p>
+</header>
+
+<blockquote><i>Select the technology, fill the inputs (use dots for decimal places), and click Calculate. Depending on the technology some fields will be disabled as they are not applicable.</i></blockquote>
+
+	<h3>Inputs:</h3>
+
+    <form action="" onsubmit="return calculate()">
+<br/>
+    	<label><b>Technology:</b></label><br/>
+    	<input type="radio" id="radioWimax" name="technology" value="wimax" onclick="changeTechnology();"checked>
+  		<label>Wimax</label>
+    	<input type="radio" id="radioGSM" name="technology" value="gsm" onclick="changeTechnology();">
+  		<label>GSM</label>
+    	<input type="radio" id="radioUMTS" name="technology" value="umts" onclick="changeTechnology();">
+  		<label>UMTS</label>
+
+  		<br/><br/>
+
+<table><tbody><tr><td>
+
+		<label>Margin (shadow-fade):</label><br/>
+	    <input type="number" step="any" id="marginShadowfade" required> <label>dB</label><br/>
+
+	    <label>Margin (interference):</label><br/>
+	    <input type="number" step="any" id="marginInterference" required> <label>dB</label><br/>
+
+		<label>Channel Bandwidth:</label><br/>
+	    <input type="number" step="any" id="channelBandwidth" required> <label id="labelChannelBandwidth">MHz</label><br/>
+
+	    <input id="channelBandwidthMultiplier" type="hidden">
+
+		<label>Building Penetration Loss:</label><br/>
+	    <input type="number" step="any" id="buildingPenetrationLoss" required> <label>dB</label><br/>
+
+		<label>System Band:</label><br/>
+	    <input type="number" step="any" id="systemBand" required> <label>MHz</label><br/>
+
+</td><td>
+
+		<label>Macro Diversity Gain:</label><br/>
+	    <input type="number" step="any" id="macroDiversityGain" required> <label>dB</label><br/>
+
+		<label>Base Station Height:</label><br/>
+	    <input type="number" step="any" id="baseStationHeight" required> <label>m</label><br/>
+
+		<label>Mobile Height:</label><br/>
+	    <input type="number" step="any" id="mobileHeight" required> <label>m</label><br/>
+
+		<label>Body Person Loss:</label><br/>
+	    <input type="number" step="any" id="bodyPersonLoss" required> <label>dB</label><br/>
+
+	    <label>Data rate:</label><br/>
+	    <input type="number" step="any" id="dataRate" disabled required> <label>kbps</label><br/>
+
+
+</td></tr></tbody></table>
+
+	    
+<table><tbody><tr><td>
+
+		<h4>Downlink parameters</h4>
+
+		<label>Transmitter Output:</label><br/>
+	    <input type="number" step="any" id="dTransmitterOutput" required> <label>dBm</label><br/>
+
+		<label>Transmitter Antennas:</label><br/>
+	    <input type="number" step="any" id="dTransmitterAntennas" required> <label>antennas</label><br/>
+
+		<label>Transmitter Antenna Gain:</label><br/>
+	    <input type="number" step="any" id="dTransmitterAntennaGain" required> <label>dB</label><br/>
+
+		<label>Transmitter Loss:</label><br/>
+	    <input type="number" step="any" id="dTransmitterLoss" required> <label>dB</label><br/>
+
+		<label>Receiver Loss:</label><br/>
+	    <input type="number" step="any" id="dReceiverLoss" required> <label>dB</label><br/>
+
+		<label>Receiver Antenna Gain:</label><br/>
+	    <input type="number" step="any" id="dReceiverAntennaGain" required> <label>dB</label><br/>
+
+		<label>Subchannels:</label><br/>
+	    <input type="number" step="any" id="dSubchannels" required> <label>subchannels</label><br/>
+
+		<label>Required SNR:</label><br/>
+	    <input type="number" step="any" id="dRequiredSNR" required> <label>dB</label><br/>
+
+		<label>Receiver Noise Figure:</label><br/>
+	    <input type="number" step="any" id="dReceiverNoiseFigure" required> <label>dB</label><br/>
+
+</td><td>
+
+	    <h4>Uplink parameters</h4>
+
+		<label>Transmitter Output:</label><br/>
+	    <input type="number" step="any" id="uTransmitterOutput" required> <label>dBm</label><br/>
+
+		<label>Transmitter Antennas:</label><br/>
+	    <input type="number" step="any" id="uTransmitterAntennas" required> <label>antennas</label><br/>
+
+		<label>Transmitter Antenna Gain:</label><br/>
+	    <input type="number" step="any" id="uTransmitterAntennaGain" required> <label>dB</label><br/>
+
+		<label>Transmitter Loss:</label><br/>
+	    <input type="number" step="any" id="uTransmitterLoss" required> <label>dB</label><br/>
+
+		<label>Receiver Loss:</label><br/>
+	    <input type="number" step="any" id="uReceiverLoss" required> <label>dB</label><br/>
+
+		<label>Receiver Antenna Gain:</label><br/>
+	    <input type="number" step="any" id="uReceiverAntennaGain" required> <label>dB</label><br/>
+
+		<label>Subchannels:</label><br/>
+	    <input type="number" step="any" id="uSubchannels" required> <label>subchannels</label><br/>
+
+		<label>Required SNR:</label><br/>
+	    <input type="number" step="any" id="uRequiredSNR" required> <label>dB</label><br/>
+
+		<label>Receiver Noise Figure:</label><br/>
+	    <input type="number" step="any" id="uReceiverNoiseFigure" required> <label>dB</label><br/>
+
+</td></tr></tbody></table>
+
+	    <button type="submit">Calculate</button>
+
+	    <br/>
+
+	</form>
+
+	<hr>
+
+	<h3>Results:</h3>
+	<br/>
+
+<details>
+  <summary>Downlink results</summary>
+
+  <table><tbody><tr><td>
+
+		<label>Effective Isotropic Radiated Power:</label><br/>
+	    <input type="text"  id="rdEffectiveIsotropicRadiatedPower" disabled> <label>dBm</label><br/>
+
+	    <label>Receiver Noise Level:</label><br/>
+	    <input type="text"  id="rdReceiverNoiseLevel" disabled> <label>dBm</label><br/>
+
+	    <label>Subchannelization Gain:</label><br/>
+	    <input type="text"  id="rdSubchannelizationGain" disabled> <label>dB</label><br/>
+
+	    <label>Receiver Sensitivity:</label><br/>
+	    <input type="text"  id="rdReceiverSensitivity" disabled> <label>dBm</label><br/>
+
+</td><td>
+
+	    <label>System Gain:</label><br/>
+	    <input type="text"  id="rdSystemGain" disabled> <label>dB</label><br/>
+
+	    <label>Shadow-fade Margin:</label><br/>
+	    <input type="text"  id="rdShadowfadeMargin" disabled> <label>dB</label><br/>
+
+	    <label>Building Penetration Loss:</label><br/>
+	    <input type="text"  id="rdBuildingPenetrationLoss" disabled> <label>dB</label><br/>
+
+	    <label>Link Margin:</label><br/>
+	    <input type="text"  id="rdLinkMargin" disabled> <label>dB</label><br/>
+
+</td></tr></tbody></table>
+
+
+<table><tbody><tr><td>
+
+		<label>Coverage Range Big City:</label><br/>
+	    <input type="text"  id="rdCoverageRangeBigCity" disabled> <label>km</label><br/>
+
+		<label>Coverage Range Medium-Small City:</label><br/>
+	    <input type="text" id="rdCoverageRangeMediumSmallCity" disabled> <label>km</label><br/>
+
+</td><td>
+
+
+	    <label>Coverage Range Suburban:</label><br/>
+	    <input type="text" id="rdCoverageRangeSuburbanCity" disabled> <label>km</label><br/>
+
+	    <label>Coverage Range Rural:</label><br/>
+	    <input type="text" id="rdCoverageRangeRural" disabled> <label>km</label><br/>
+
+</td></tr></tbody></table>
+</details>
+
+<details>
+  <summary>Uplink results</summary>
+<table><tbody><tr><td>
+
+		<label>Effective Isotropic Radiated Power:</label><br/>
+	    <input type="text"  id="ruEffectiveIsotropicRadiatedPower" disabled> <label>dBm</label><br/>
+
+	    <label>Receiver Noise Level:</label><br/>
+	    <input type="text"  id="ruReceiverNoiseLevel" disabled> <label>dBm</label><br/>
+
+	    <label>Subchannelization Gain:</label><br/>
+	    <input type="text"  id="ruSubchannelizationGain" disabled> <label>dB</label><br/>
+
+	    <label>Receiver Sensitivity:</label><br/>
+	    <input type="text"  id="ruReceiverSensitivity" disabled> <label>dBm</label><br/>
+
+</td><td>
+
+	    <label>System Gain:</label><br/>
+	    <input type="text"  id="ruSystemGain" disabled> <label>dB</label><br/>
+
+	    <label>Shadow-fade Margin:</label><br/>
+	    <input type="text"  id="ruShadowfadeMargin" disabled> <label>dB</label><br/>
+
+	    <label>Building Penetration Loss:</label><br/>
+	    <input type="text"  id="ruBuildingPenetrationLoss" disabled> <label>dB</label><br/>
+
+	    <label>Link Margin:</label><br/>
+	    <input type="text"  id="ruLinkMargin" disabled> <label>dB</label><br/>
+
+</td></tr></tbody></table>
+
+
+<table><tbody><tr><td>
+
+		<label>Coverage Range Big City:</label><br/>
+	    <input type="text"  id="ruCoverageRangeBigCity" disabled> <label>km</label><br/>
+
+		<label>Coverage Range Medium-Small City:</label><br/>
+	    <input type="text" id="ruCoverageRangeMediumSmallCity" disabled> <label>km</label><br/>
+
+</td><td>
+
+
+	    <label>Coverage Range Suburban:</label><br/>
+	    <input type="text" id="ruCoverageRangeSuburbanCity" disabled> <label>km</label><br/>
+
+	    <label>Coverage Range Rural:</label><br/>
+	    <input type="text" id="ruCoverageRangeRural" disabled> <label>km</label><br/>
+
+</td></tr></tbody></table>
+</details>
+
+<details id="detailsAggregate">
+  <summary id="summaryAggregate">Aggregate results</summary>
+<table><tbody><tr><td>
+
+		<label>Effective Isotropic Radiated Power:</label><br/>
+	    <input type="text"  id="rEffectiveIsotropicRadiatedPower" disabled> <label>dBm</label><br/>
+
+	    <label>Receiver Noise Level:</label><br/>
+	    <input type="text"  id="rReceiverNoiseLevel" disabled> <label>dBm</label><br/>
+
+	    <label>Subchannelization Gain:</label><br/>
+	    <input type="text"  id="rSubchannelizationGain" disabled> <label>dB</label><br/>
+
+	    <label>Receiver Sensitivity:</label><br/>
+	    <input type="text"  id="rReceiverSensitivity" disabled> <label>dBm</label><br/>
+
+</td><td>
+
+	    <label>System Gain:</label><br/>
+	    <input type="text"  id="rSystemGain" disabled> <label>dB</label><br/>
+
+	    <label>Shadow-fade Margin:</label><br/>
+	    <input type="text"  id="rShadowfadeMargin" disabled> <label>dB</label><br/>
+
+	    <label>Building Penetration Loss:</label><br/>
+	    <input type="text"  id="rBuildingPenetrationLoss" disabled> <label>dB</label><br/>
+
+	    <label>Link Margin:</label><br/>
+	    <input type="text"  id="rLinkMargin" disabled> <label>dB</label><br/>
+
+</td></tr></tbody></table>
+
+
+<table><tbody><tr><td>
+
+		<label>Coverage Range Big City:</label><br/>
+	    <input type="text"  id="rCoverageRangeBigCity" disabled> <label>km</label><br/>
+
+		<label>Coverage Range Medium-Small City:</label><br/>
+	    <input type="text" id="rCoverageRangeMediumSmallCity" disabled> <label>km</label><br/>
+
+</td><td>
+
+
+	    <label>Coverage Range Suburban:</label><br/>
+	    <input type="text" id="rCoverageRangeSuburbanCity" disabled> <label>km</label><br/>
+
+	    <label>Coverage Range Rural:</label><br/>
+	    <input type="text" id="rCoverageRangeRural" disabled> <label>km</label><br/>
+
+</td></tr></tbody></table>
+</details>  
+
+
+	    <br/>
+
+<blockquote><i>All operations are logged on the Javascript Console Log, to see them press <mark>F12</mark>.</i></blockquote>
+
+
+	<script>
+		onload()
+	</script>
+  	
+
+  </body>
+</html>
